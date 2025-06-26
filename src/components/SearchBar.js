@@ -1,6 +1,11 @@
 import React from "react";
 
-function SearchBar() {
+const SearchBar = ({ onFilter }) => {
+
+  const handleChange = (e) => {
+    onFilter(e.target.value)
+  }
+
   return (
     <div>
       <strong>Sort by:</strong>
@@ -27,7 +32,7 @@ function SearchBar() {
       <br />
       <label>
         <strong>Filter:</strong>
-        <select onChange={null}>
+        <select onChange={handleChange}>
           <option value="Tech">Tech</option>
           <option value="Sportswear">Sportswear</option>
           <option value="Finance">Finance</option>
