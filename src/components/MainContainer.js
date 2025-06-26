@@ -22,7 +22,12 @@ const MainContainer = () => {
       price,
       ticker
     }
-    setPortfolio([...portfolio, stock])
+
+    const alreadyAdded = portfolio.some(p => p.id === id);
+
+    if (!alreadyAdded) {
+      setPortfolio([...portfolio, stock]);
+    }
   }
 
   return (
