@@ -3,10 +3,11 @@ import StockContainer from "./StockContainer";
 import PortfolioContainer from "./PortfolioContainer";
 import SearchBar from "./SearchBar";
 
-function MainContainer() {
+const MainContainer = () => {
   const [filter, setFilter] = useState(null)
-  const [stocks, setStocks] = useState([])
   const [portfolio, setPortfolio] = useState([])
+  const [sort, setSort] = useState(null)
+  const [stocks, setStocks] = useState([])
 
   useEffect(() => {
     fetch('http://localhost:3001/stocks')
@@ -26,10 +27,10 @@ function MainContainer() {
 
   return (
     <div>
-      <SearchBar onFilter={setFilter}/>
+      <SearchBar onFilter={setFilter} onSort={setSort}/>
       <div className="row">
         <div className="col-8">
-          <StockContainer selectedFilter={filter} onAddToPortfolio={handleAddToPortfolio} stocks={stocks}/>
+          <StockContainer onAddToPortfolio={handleAddToPortfolio} selectedFilter={filter} selectedSort={sort} stocks={stocks}/>
         </div>
         <div className="col-4">
           <PortfolioContainer  portfolio={portfolio}/>

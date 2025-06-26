@@ -1,13 +1,19 @@
 import React from "react";
 import Stock from "./Stock";
 
-const StockContainer = ({ selectedFilter, onAddToPortfolio, stocks }) => {
+const StockContainer = ({ selectedFilter, selectedSort, onAddToPortfolio, stocks }) => {
 
   const filteredStocks = selectedFilter === null
     ? stocks
     : stocks.filter(stock => stock.type === selectedFilter)
 
-  const renderStocks = filteredStocks.map(({ id, name, price, ticker, type }) => (
+  const filteredAndSortedStocks = selectedSort === null
+    ? filteredStocks
+    : selectedSort === 'Alphabetically'
+      ? [...filteredStocks].sort((a, b) => a.name.localeCompare(b.name) )
+      : [...filteredStocks].sort((a, b) => a.price - b.price )
+
+  const renderStocks = filteredAndSortedStocks.map(({ id, name, price, ticker, type }) => (
     <Stock
       key={id}
       id={id}
@@ -16,6 +22,7 @@ const StockContainer = ({ selectedFilter, onAddToPortfolio, stocks }) => {
       price={price}
       ticker={ticker}
       type={type}
+      useCase = 'stock'
     />
   ))
   return (

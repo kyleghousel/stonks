@@ -1,9 +1,13 @@
 import React from "react";
 
-const SearchBar = ({ onFilter }) => {
+const SearchBar = ({ onFilter, onSort }) => {
 
-  const handleChange = (e) => {
+  const handleFilter = (e) => {
     onFilter(e.target.value)
+  }
+
+  const handleSort = (e) => {
+    e.target.checked ? onSort(e.target.value) : onSort(null)
   }
 
   return (
@@ -15,7 +19,7 @@ const SearchBar = ({ onFilter }) => {
           value="Alphabetically"
           name="sort"
           checked={null}
-          onChange={null}
+          onChange={handleSort}
         />
         Alphabetically
       </label>
@@ -25,14 +29,14 @@ const SearchBar = ({ onFilter }) => {
           value="Price"
           name="sort"
           checked={null}
-          onChange={null}
+          onChange={handleSort}
         />
         Price
       </label>
       <br />
       <label>
         <strong>Filter:</strong>
-        <select onChange={handleChange}>
+        <select onChange={handleFilter}>
           <option value="Tech">Tech</option>
           <option value="Sportswear">Sportswear</option>
           <option value="Finance">Finance</option>
